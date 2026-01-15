@@ -72,4 +72,8 @@ public class Transaction {
         this.location = location;
     }
 
+    public String toString() {
+        return "Transaction [transactionId=" + transactionId + ", userId=" + userId + ", amount=" + amount
+                + ", timestamp=" + timestamp + ", location=" + location + "]";
+    }
 }

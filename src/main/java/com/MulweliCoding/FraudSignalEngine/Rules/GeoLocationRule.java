@@ -33,12 +33,12 @@ public class GeoLocationRule implements RuleInterface {
     @Override
     public void evaluate(List<Transaction> transactions, com.MulweliCoding.FraudSignalEngine.Model.Transaction transaction) {
         for (Transaction pastTransaction : transactions) {
-            if (!pastTransaction.getLocation().equals(transaction.getLocation())) {
-                System.out.println("GeoLocation Rule Triggered: Transaction location " + transaction.getLocation() + " differs from past location " + pastTransaction.getLocation() + " for user ID " + transaction.getUserId());
-                riskScore += 10;
-                break;
+            if (pastTransaction.getLocation().equals(transaction.getLocation())) {
+                riskScore = 0;
+                return;
             }
         }
-        System.out.println(" GeoLocation Rule for transaction ID: " + transaction.getTransactionId() + " evaluated.");
+        riskScore = 20; // Assign a risk score if location is new
+        System.out.println(" GeoLocation Rule at transaction ID: " + transaction.getTransactionId() + " Triggered");
     }
 }

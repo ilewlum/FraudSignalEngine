@@ -29,15 +29,20 @@ public class FraudEngineController {
             transaction.getLocation()
         );
         System.out.println("Transaction created: " + newTransaction);
+        System.out.println();
 
         fraudEngineService.filterTransactionsByUser(transactionController.getAllTransactions(), newTransaction.getUserId());
-         System.out.println("Past transactions filtered for user ID: " + newTransaction.getUserId());
+        System.out.println("Past transactions filtered for user ID: " + newTransaction.getUserId());
+        System.out.println();
 
         int riskScore = fraudEngineService.evaluateTransaction(newTransaction);
-         System.out.println("Transaction evaluated with Risk Score: " + riskScore);
+        System.out.println("Transaction evaluated with Risk Score: " + riskScore);
+        System.out.println();
 
         transactionController.addTransaction(newTransaction);
-            System.out.println("Transaction added to the transaction list.");
+        System.out.println("Transaction added to the transaction list.");
+        System.out.println();
+        System.out.println();
         return "Transaction evaluated with Risk Score: " + riskScore;
     }
 }

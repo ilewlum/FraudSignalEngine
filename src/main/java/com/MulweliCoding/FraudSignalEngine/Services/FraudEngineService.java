@@ -11,11 +11,9 @@ import com.MulweliCoding.FraudSignalEngine.Model.Transaction;
 public class FraudEngineService {
     private List<RuleInterface> rules;
     private List<Transaction> pastTransactions;
-    private int totalRiskScore;
 
     public FraudEngineService(List<RuleInterface> rules) {
         this.rules = rules;
-        totalRiskScore = 0;
     }
 
     // filter past transactions by user ID
@@ -26,11 +24,13 @@ public class FraudEngineService {
     }
 
     public int evaluateTransaction(Transaction transaction) {
+        int totalRiskScore = 0;
         for (RuleInterface rule : rules) {
             rule.evaluate(pastTransactions, transaction);
             totalRiskScore += rule.getRiskScore();
         }
         System.out.println("Total Risk Score for transaction ID " + transaction.getTransactionId() + ": " + totalRiskScore);
+        System.out.println();
         return totalRiskScore;
     }
 
