@@ -26,6 +26,10 @@ public class TransactionController {
         transactions.add(new Transaction(2, 250.5, "2024-10-01T11:30:00Z", "Los Angeles"));
     }
 
+    public void addTransaction(Transaction transaction) {
+        transactions.add(transaction);
+    }
+
     // Get all Transactions
     @GetMapping
     public List<Transaction> getAllTransactions() {

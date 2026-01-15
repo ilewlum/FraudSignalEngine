@@ -1,7 +1,6 @@
 package com.MulweliCoding.FraudSignalEngine.Model;
 
 import jakarta.annotation.Generated;
-import jakarta.persistence.Entity;
 
 public class Transaction {
     // Instance variables
