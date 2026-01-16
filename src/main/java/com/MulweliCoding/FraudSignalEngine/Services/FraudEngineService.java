@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 
 import com.MulweliCoding.FraudSignalEngine.Rules.*;
 import com.MulweliCoding.FraudSignalEngine.Model.Transaction;
-import com.MulweliCoding.FraudSignalEngine.Model.Transaction;
 
 @Service
 public class FraudEngineService {
