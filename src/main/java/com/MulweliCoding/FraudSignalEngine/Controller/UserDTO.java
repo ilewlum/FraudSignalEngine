@@ -1,15 +1,9 @@
-package com.MulweliCoding.FraudSignalEngine.Model;
+package com.MulweliCoding.FraudSignalEngine.Controller;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 
-@Entity
-@Table(name = "users")
-public class User {
-    @Id
+public class UserDTO {
     private long userId;
     private String name;
     private String email;
@@ -17,22 +11,7 @@ public class User {
     private String region;
 
     // Constructors
-    public User() {
-        this.userId = 0;
-        this.name = "";
-        this.email = "";
-        this.phoneNumber = "";
-        this.region = "";
-    } 
-
-    public User(User other) {
-        this.name = other.name;
-        this.email = other.email;
-        this.phoneNumber = other.phoneNumber;
-        this.region = other.region;
-    }
-
-    public User(long userId, String name, String email, String phoneNumber, String region) {
+    public UserDTO(long userId, String name, String email, String phoneNumber, String region) {
         this.userId = userId;
         this.name = name;
         this.email = email;
@@ -80,5 +59,4 @@ public class User {
     public String toString() {
         return "User [userId=" + userId + ", name=" + name + ", email=" + email + ", phoneNumber=" + phoneNumber + ", region=" + region + "]";
     }
-
 }
