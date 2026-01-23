@@ -4,33 +4,32 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.MulweliCoding.FraudSignalEngine.Rules.*;
+import com.MulweliCoding.FraudSignalEngine.Repository.TransactionRepository;
 import com.MulweliCoding.FraudSignalEngine.Model.Transaction;
+
 
 @Service
 public class FraudEngineService {
     private List<RuleInterface> rules;
-    private List<Transaction> pastTransactions;
+    private TransactionRepository transactionRepository;
 
-    public FraudEngineService(List<RuleInterface> rules) {
+    public FraudEngineService(List<RuleInterface> rules, TransactionRepository transactionRepository) {
         this.rules = rules;
-    }
-
-    // filter past transactions by user ID
-    public void filterTransactionsByUser(List<Transaction> allTransactions, long userId) {
-        pastTransactions = allTransactions.stream()
-                .filter(t -> t.getUserId() == userId)
-                .toList();
+        this.transactionRepository = transactionRepository;
     }
 
     public int evaluateTransaction(Transaction transaction) {
-        int totalRiskScore = 0;
+        System.out.println("Evaluating transaction for user ID: " + transaction.getUserId());
+        List<Transaction> pastTransactions = transactionRepository.findByUserId(transaction.getUserId());
+        int fraudScore = 0;
         for (RuleInterface rule : rules) {
+            System.out.println("Applying rule: " + rule.getClass().getSimpleName());
             rule.evaluate(pastTransactions, transaction);
-            totalRiskScore += rule.getRiskScore();
+            fraudScore += rule.getRiskScore();
         }
-        System.out.println("Total Risk Score for transaction ID " + transaction.getTransactionId() + ": " + totalRiskScore);
-        System.out.println();
-        return totalRiskScore;
+        transactionRepository.save(transaction);
+        System.out.println("Fraud score for transaction: " + fraudScore);
+        return fraudScore;
     }
 
 }

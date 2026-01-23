@@ -1,11 +1,17 @@
 package com.MulweliCoding.FraudSignalEngine.Model;
 
-import jakarta.annotation.Generated;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "Transactions")
 public class Transaction {
     // Instance variables
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long transactionId;
     private long userId;
     private double amount;
