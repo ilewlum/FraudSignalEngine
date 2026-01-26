@@ -9,7 +9,9 @@ import jakarta.persistence.GenerationType;
 @Entity
 @Table(name = "users")
 public class User {
+    // Instance variables
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long userId;
     private String name;
     private String email;
@@ -18,7 +20,6 @@ public class User {
 
     // Constructors
     public User() {
-        this.userId = 0;
         this.name = "";
         this.email = "";
         this.phoneNumber = "";
@@ -32,8 +33,8 @@ public class User {
         this.region = other.region;
     }
 
-    public User(long userId, String name, String email, String phoneNumber, String region) {
-        this.userId = userId;
+    public User(String name, String email, String phoneNumber, String region) {
+
         this.name = name;
         this.email = email;
         this.phoneNumber = phoneNumber;

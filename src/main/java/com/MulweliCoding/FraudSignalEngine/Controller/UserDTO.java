@@ -4,15 +4,13 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 
 public class UserDTO {
-    private long userId;
     private String name;
     private String email;
     private String phoneNumber;
     private String region;
 
     // Constructors
-    public UserDTO(long userId, String name, String email, String phoneNumber, String region) {
-        this.userId = userId;
+    public UserDTO(String name, String email, String phoneNumber, String region) {
         this.name = name;
         this.email = email;
         this.phoneNumber = phoneNumber;
@@ -20,10 +18,6 @@ public class UserDTO {
     }
 
     // Getters and Setters
-    public long getUserId() {
-        return userId;
-    }       
-
     public String getName() {
         return name;
     }
@@ -57,6 +51,6 @@ public class UserDTO {
     }
 
     public String toString() {
-        return "User [userId=" + userId + ", name=" + name + ", email=" + email + ", phoneNumber=" + phoneNumber + ", region=" + region + "]";
+        return "Username=" + name + ", email=" + email + ", phoneNumber=" + phoneNumber + ", region=" + region + "]";
     }
 }

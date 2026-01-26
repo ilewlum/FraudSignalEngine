@@ -8,11 +8,13 @@ public class GeoLocationRule implements RuleInterface {
     private String name;
     private String description;
     private int riskScore;
+    private boolean triggered;
 
     public GeoLocationRule() {
         this.name = "GeoLocation Rule";
         this.description = "Evaluates the transaction based on the geographical location.";
         this.riskScore = 0;
+        this.triggered = false;
     }
 
     @Override
@@ -31,6 +33,16 @@ public class GeoLocationRule implements RuleInterface {
     }
 
     @Override
+    public String getRuleName() {
+        return name;
+    }
+
+    @Override
+    public boolean isTriggered() {
+        return triggered;
+    }
+
+    @Override
     public void evaluate(List<Transaction> transactions, com.MulweliCoding.FraudSignalEngine.Model.Transaction transaction) {
         for (Transaction pastTransaction : transactions) {
             System.out.println(" Comparing past transaction location: " + pastTransaction.getLocation() + " with current transaction location: " + transaction.getLocation());
@@ -40,6 +52,7 @@ public class GeoLocationRule implements RuleInterface {
             }
         }
         riskScore = 20; // Assign a risk score if location is new
+        triggered = true;
         System.out.println(" GeoLocation Rule at transaction ID: " + transaction.getTransactionId() + " Triggered");
     }
 }

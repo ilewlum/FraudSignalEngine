@@ -1,4 +1,5 @@
 package com.MulweliCoding.FraudSignalEngine.Controller;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.MulweliCoding.FraudSignalEngine.Model.Transaction;
 import com.MulweliCoding.FraudSignalEngine.Controller.TransactionDTO;
 import com.MulweliCoding.FraudSignalEngine.Services.FraudEngineService;
+import com.MulweliCoding.FraudSignalEngine.Model.EvaluateResponse;
 
 @RestController
 @RequestMapping("/api/v1/fraud-engine")
@@ -19,15 +21,15 @@ public class FraudEngineController {
     }
 
     @PostMapping("/evaluate")
-    public String evaluateTransaction(@RequestBody TransactionDTO transaction) {
-        System.out.println("Received transaction for evaluation: " + transaction.getUserId() + ", " + transaction.getAmount() + ", " + transaction.getLocation() + ", " + transaction.getTimestamp());
-        fraudEngineService.evaluateTransaction(new Transaction(
+    public ResponseEntity<EvaluateResponse> evaluateTransaction(@RequestBody TransactionDTO transaction) {
+        System.out.println("Transaction evaluating.");
+        EvaluateResponse response = fraudEngineService.evaluateTransaction(new Transaction(
             transaction.getUserId(),
             transaction.getAmount(),
             transaction.getTimestamp(),
             transaction.getLocation()
         ));
         System.out.println("Transaction evaluated.");
-        return "Transaction evaluated for fraud.";
+        return ResponseEntity.ok(response);
     }
 }

@@ -7,4 +7,6 @@ public interface RuleInterface {
     String getDescription();
     int getRiskScore();
     void evaluate(List<Transaction> transactions, Transaction transaction); 
+    boolean isTriggered();
+    String getRuleName();
 }
