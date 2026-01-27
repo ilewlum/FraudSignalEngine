@@ -5,6 +5,7 @@ import org.apache.catalina.connector.Response;
 import org.springframework.stereotype.Service;
 
 import com.MulweliCoding.FraudSignalEngine.Rules.*;
+import com.MulweliCoding.FraudSignalEngine.Repository.EvaluateResponseRepository;
 import com.MulweliCoding.FraudSignalEngine.Repository.TransactionRepository;
 import com.MulweliCoding.FraudSignalEngine.Model.Transaction;
 import com.MulweliCoding.FraudSignalEngine.Model.EvaluateResponse;
@@ -14,10 +15,12 @@ import com.MulweliCoding.FraudSignalEngine.Model.EvaluateResponse;
 public class FraudEngineService {
     private List<RuleInterface> rules;
     private TransactionRepository transactionRepository;
+    private EvaluateResponseRepository evaluateResponseRepo;
 
-    public FraudEngineService(List<RuleInterface> rules, TransactionRepository transactionRepository) {
+    public FraudEngineService(List<RuleInterface> rules, TransactionRepository transactionRepository, EvaluateResponseRepository evaluateResponseRepo) {
         this.rules = rules;
         this.transactionRepository = transactionRepository;
+        this.evaluateResponseRepo = evaluateResponseRepo;
     }
 
     public EvaluateResponse evaluateTransaction(Transaction transaction) {
@@ -40,6 +43,7 @@ public class FraudEngineService {
         transactionRepository.save(transaction);
         response.setFraudScore(fraudScore);
         response.setFraud(fraudScore >= 50);
+        evaluateResponseRepo.save(response);
         return response;
     }
 
